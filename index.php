@@ -16,10 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS (data-no-optimize="1" impide que LiteSpeed Cache retrase su ejecución) -->
+  <script data-no-optimize="1" src="https://cdn.tailwindcss.com"></script>
 
-  <script>
+  <script data-no-optimize="1">
     tailwind.config = {
       theme: {
         extend: {
