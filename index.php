@@ -211,7 +211,7 @@
     .bento-card .dot { transition: transform 0.6s var(--ease); }
     .bento-card:hover .dot { transform: scale(2.4); }
 
-    #heroBgImg { will-change: transform; transition: transform 0.25s var(--ease); transform: scale(1.06) translate3d(0px, 0px, 0px); }
+    #heroBgImg { object-fit: cover; object-position: center; }
 
     .glass-panel-dark { background: rgba(43, 42, 40, 0.65); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1); }
 
@@ -783,24 +783,10 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      /* 1. Portada: parallax con cursor y scroll */
-      var heroScrollY = 0, heroMouseX = 0, heroMouseY = 0;
-      var hero = document.getElementById('heroContainer'), heroImg = document.getElementById('heroBgImg'), glass = document.getElementById('heroGlassCard');
-      function heroPaint() { heroImg.style.transform = 'scale(1.07) translate3d(' + heroMouseX + 'px,' + (heroScrollY + heroMouseY) + 'px,0)'; }
-      if (!reduce && finePointer) {
-        hero.addEventListener('mousemove', function (e) {
-          var r = hero.getBoundingClientRect(); var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-          heroMouseX = -x * 22; heroMouseY = -y * 16; heroPaint();
-          glass.style.transform = 'translate3d(' + (x * 8) + 'px,' + (y * 6) + 'px,0)';
-        });
-        hero.addEventListener('mouseleave', function () { heroMouseX = 0; heroMouseY = 0; heroPaint(); glass.style.transform = 'translate3d(0,0,0)'; });
-      }
-
-      /* 2. Revelado al hacer scroll */
+      /* 1. Revelado al hacer scroll */
       function reveal() {
         var els = document.querySelectorAll('.reveal:not(.active)');
         for (var i = 0; i < els.length; i++) if (els[i].getBoundingClientRect().top < window.innerHeight - 60) els[i].classList.add('active');
-        if (!reduce && window.scrollY < 1000) { heroScrollY = window.scrollY * 0.08; heroPaint(); }
       }
       window.addEventListener('scroll', reveal, { passive: true });
       reveal();
