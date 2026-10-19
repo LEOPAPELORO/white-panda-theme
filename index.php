@@ -7,10 +7,14 @@
   <meta name="description" content="Pañuelos faciales 100% de fibra de bambú, 2 capas, para hotelería, corporativos e instituciones en México." />
   
   <!-- Preconnects de rendimiento -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+  </noscript>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -99,6 +103,83 @@
       text-decoration: none;
     }
 
+    /* Pre-Tailwind Layout Lock — Proporciones y dimensiones fijas instantáneas */
+    #heroContainer {
+      position: relative;
+      width: 100%;
+      max-width: 1680px;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: 600px;
+      height: 88vh;
+      max-height: 900px;
+      border-radius: 2.25rem;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background-color: #D1D4CB;
+    }
+    @media (min-width: 768px) {
+      #heroContainer {
+        border-radius: 3rem;
+      }
+    }
+    #heroContainer > div:first-child {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #heroBgImg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    #heroGlassCard {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 36rem;
+    }
+    @media (min-width: 640px) {
+      #heroGlassCard {
+        margin-left: 2.5rem;
+      }
+    }
+    @media (min-width: 768px) {
+      #heroGlassCard {
+        margin-left: 4rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      #heroGlassCard {
+        margin-left: 5rem;
+      }
+    }
+
+    /* Tarjetas de Producto fijas (evita saltos al cargar imágenes) */
+    .product-stage {
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) {
+      .product-stage {
+        min-height: 400px;
+      }
+    }
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 2rem;
+    }
+
     :root {
       --bg-linen: #EDECE7;
       --ink-dark: #2B2A28;
@@ -119,9 +200,9 @@
     .gutter { padding-left: max(1.5rem, env(safe-area-inset-left, 0px)); padding-right: max(1.5rem, env(safe-area-inset-right, 0px)); }
     @media (min-width: 640px) { .gutter { padding-left: max(2.5rem, env(safe-area-inset-left, 0px)); padding-right: max(2.5rem, env(safe-area-inset-right, 0px)); } }
 
-    .reveal { transform: translateY(28px); transition: transform 0.9s var(--ease), opacity 0.9s var(--ease); opacity: 0; }
+    .reveal { transform: translateY(14px); transition: transform 0.65s var(--ease), opacity 0.65s var(--ease); opacity: 0; }
     .reveal.active { transform: translateY(0); opacity: 1; }
-    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-1 { transition-delay: 0.08s; }
 
     .glass-panel { background: rgba(250, 249, 245, 0.68); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.55); }
     .glass-card-subtle {
