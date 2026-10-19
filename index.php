@@ -6,13 +6,14 @@
   <title>White Panda — Tissue Arquitectónico</title>
   <meta name="description" content="Pañuelos faciales 100% de fibra de bambú, 2 capas, para hotelería, corporativos e instituciones en México." />
   
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Fuentes -->
+  <!-- Preconnects de rendimiento -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
     tailwind.config = {
@@ -33,10 +34,71 @@
           }
         }
       }
-    }
+    };
+    (function() {
+      function reveal() { document.documentElement.classList.add('tw-ready'); }
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(reveal, 40);
+      } else {
+        window.addEventListener('DOMContentLoaded', reveal);
+        setTimeout(reveal, 180);
+      }
+    })();
   </script>
 
   <style>
+    /* Prevención de FOUC (Flash de contenido sin estilo) */
+    html {
+      background-color: #EDECE7;
+      opacity: 0;
+      transition: opacity 0.22s ease-out;
+    }
+    html.tw-ready {
+      opacity: 1;
+    }
+    /* Estilos críticos para carga instantánea del header y navegación */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5rem;
+      z-index: 40;
+      background-color: rgba(237, 236, 231, 0.85);
+      border-bottom: 1px solid rgba(43, 42, 40, 0.05);
+    }
+    header img {
+      height: 36px !important;
+      max-height: 36px !important;
+      width: auto !important;
+      object-fit: contain;
+    }
+    header nav {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      header nav {
+        display: flex !important;
+        align-items: center;
+        gap: 2.25rem;
+      }
+    }
+    header nav a {
+      color: rgba(43, 42, 40, 0.7) !important;
+      text-decoration: none !important;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    header nav a:hover {
+      color: #2B2A28 !important;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     :root {
       --bg-linen: #EDECE7;
       --ink-dark: #2B2A28;
@@ -179,7 +241,7 @@
   <header class="fixed inset-x-0 z-40 bg-linen/85 backdrop-blur-xl border-b border-charcoal/5 transition-all duration-300" style="top: env(safe-area-inset-top, 0px)">
     <div class="max-w-[1440px] mx-auto gutter h-20 flex items-center justify-between">
       <a href="#" class="block hover:opacity-80 transition-opacity">
-        <img src="https://whitepanda.mx/wp-content/uploads/2026/09/Logo-secundario-10-1-scaled.png" alt="White Panda" class="h-9 w-auto object-contain" />
+        <img src="https://whitepanda.mx/wp-content/uploads/2026/09/Logo-secundario-10-1-scaled.png" alt="White Panda" width="160" height="36" style="height: 36px; max-height: 36px; width: auto; object-fit: contain;" class="h-9 w-auto object-contain" />
       </a>
       <nav class="hidden md:flex items-center gap-9 text-xs font-semibold tracking-widest text-charcoal/70 uppercase">
         <a href="#filosofia" class="hover:text-charcoal transition-colors">Filosofía</a>
@@ -197,7 +259,7 @@
   <section class="pt-24 pb-10 px-3 sm:px-6 lg:px-8">
     <div id="heroContainer" class="relative w-full max-w-[1680px] mx-auto min-h-[650px] md:h-[88vh] max-h-[900px] rounded-[2.25rem] md:rounded-[3rem] flex items-center overflow-hidden shadow-2xl border border-white/60">
       <div class="absolute inset-0 z-0 overflow-hidden bg-sage">
-        <img id="heroBgImg" src="https://whitepanda.mx/wp-content/uploads/2026/09/PORTADA-WP.png" alt="Pañuelos White Panda de bambú sobre piedra" class="w-full h-full object-cover object-center" />
+        <img id="heroBgImg" src="https://whitepanda.mx/wp-content/uploads/2026/09/PORTADA-WP.png" alt="Pañuelos White Panda de bambú sobre piedra" fetchpriority="high" decoding="async" class="w-full h-full object-cover object-center" />
         <div class="absolute inset-0 bg-gradient-to-r from-charcoal/25 via-charcoal/5 to-transparent pointer-events-none"></div>
       </div>
 
@@ -280,7 +342,7 @@
               <span class="select-indicator px-3 py-1 rounded-full bg-linen/90 text-[10px] font-mono font-semibold text-charcoal transition-colors">WPC36</span>
             </div>
             <span class="halo"></span><span class="floor"></span>
-            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPC36-1.webp" alt="Pañuelo Facial Cube WPC36" class="product-img w-[82%] h-[82%] object-contain object-center mt-4" />
+            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPC36-1.webp" alt="Pañuelo Facial Cube WPC36" loading="lazy" decoding="async" class="product-img w-[82%] h-[82%] object-contain object-center mt-4" />
           </div>
           <div class="product-info-box p-8 sm:p-9 flex-1 flex flex-col">
             <div>
@@ -318,7 +380,7 @@
               <span class="select-indicator px-3 py-1 rounded-full bg-linen/90 text-[10px] font-mono font-semibold text-charcoal transition-colors">WPC72</span>
             </div>
             <span class="halo"></span><span class="floor"></span>
-            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPC72-1.webp" alt="Pañuelo Facial Flat WPC72" class="product-img w-[90%] h-[86%] object-contain object-center mt-4" />
+            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPC72-1.webp" alt="Pañuelo Facial Flat WPC72" loading="lazy" decoding="async" class="product-img w-[90%] h-[86%] object-contain object-center mt-4" />
           </div>
           <div class="product-info-box p-8 sm:p-9 flex-1 flex flex-col">
             <div>
@@ -356,7 +418,7 @@
               <span class="select-indicator px-3 py-1 rounded-full bg-linen/90 text-[10px] font-mono font-semibold text-charcoal transition-colors">WPP24</span>
             </div>
             <span class="halo"></span><span class="floor"></span>
-            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPP24-1.webp" alt="Pañuelo Facial Pocket WPP24" class="product-img w-[90%] h-[86%] object-contain object-center mt-4" />
+            <img src="https://whitepanda.mx/wp-content/uploads/2026/10/WHITEPANDA-WPP24-1.webp" alt="Pañuelo Facial Pocket WPP24" loading="lazy" decoding="async" class="product-img w-[90%] h-[86%] object-contain object-center mt-4" />
           </div>
           <div class="product-info-box p-8 sm:p-9 flex-1 flex flex-col">
             <div>
