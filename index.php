@@ -17,7 +17,7 @@
   </noscript>
 
   <!-- Tailwind CSS (data-no-optimize="1" impide que LiteSpeed Cache retrase su ejecución) -->
-  <script data-no-optimize="1" src="https://cdn.tailwindcss.com"></script>
+  <script data-no-optimize="1" src="https://cdn.tailwindcss.com/3.4.17"></script>
 
   <script data-no-optimize="1">
     tailwind.config = {
@@ -41,66 +41,102 @@
     };
     (function() {
       function reveal() { document.documentElement.classList.add('tw-ready'); }
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(reveal, 40);
+      if (document.readyState === 'complete') {
+        reveal();
       } else {
-        window.addEventListener('DOMContentLoaded', reveal);
-        setTimeout(reveal, 180);
+        window.addEventListener('load', reveal);
+        setTimeout(reveal, 600);
       }
     })();
   </script>
 
   <style>
-    /* Prevención de FOUC (Flash de contenido sin estilo) */
+    /* Prevención de FOUC */
     html {
       background-color: #EDECE7;
       opacity: 0;
-      transition: opacity 0.22s ease-out;
+      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     html.tw-ready {
       opacity: 1;
     }
-    /* Estilos críticos para carga instantánea del header y navegación */
+
+    /* Regla global absoluta contra hipervínculos azules */
+    a, a:link, a:visited, a:hover, a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header y Barra de Navegación 100% blindados en CSS */
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5rem;
-      z-index: 40;
-      background-color: rgba(237, 236, 231, 0.85);
-      border-bottom: 1px solid rgba(43, 42, 40, 0.05);
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 5rem !important;
+      z-index: 50 !important;
+      background-color: rgba(237, 236, 231, 0.95) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border-bottom: 1px solid rgba(43, 42, 40, 0.06) !important;
+    }
+    header > div {
+      max-width: 1440px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      height: 5rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
     }
     header img {
       height: 36px !important;
       max-height: 36px !important;
       width: auto !important;
-      object-fit: contain;
+      object-fit: contain !important;
     }
     header nav {
-      display: none;
+      display: none !important;
     }
     @media (min-width: 768px) {
       header nav {
         display: flex !important;
-        align-items: center;
-        gap: 2.25rem;
+        align-items: center !important;
+        gap: 2.25rem !important;
       }
     }
     header nav a {
       color: rgba(43, 42, 40, 0.7) !important;
       text-decoration: none !important;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      transition: color 0.2s ease !important;
     }
     header nav a:hover {
       color: #2B2A28 !important;
     }
-    a {
-      color: inherit;
-      text-decoration: none;
+    header a[href="#cotizador"],
+    header .btn-shine {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: #2B2A28 !important;
+      color: #FAF9F5 !important;
+      padding: 0.625rem 1.5rem !important;
+      border-radius: 9999px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 12px rgba(43, 42, 40, 0.15) !important;
+    }
+    #navTotal {
+      display: none !important;
     }
 
     /* Pre-Tailwind Layout Lock — Proporciones y dimensiones fijas instantáneas */
