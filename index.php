@@ -6,10 +6,11 @@
   <title>White Panda — Tissue Arquitectónico</title>
   <meta name="description" content="Pañuelos faciales 100% de fibra de bambú, 2 capas, para hotelería, corporativos e instituciones en México." />
   
-  <!-- Preconnects de rendimiento -->
+  <!-- Preconnects y preloads de rendimiento -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="https://whitepanda.mx/wp-content/uploads/2026/09/Logo-secundario-10-1-scaled.png" fetchpriority="high">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
@@ -97,25 +98,16 @@
     #sitePreloader.preloader-hidden .preloader-brand {
       transform: translateY(-8px);
     }
-    .preloader-emblem {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-size: 2.75rem;
-      line-height: 1;
-      color: #2B2A28;
-      margin-bottom: 0.4rem;
-    }
-    .preloader-title {
-      font-family: 'JetBrains Mono', monospace, sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.32em;
-      color: rgba(43, 42, 40, 0.85);
-      text-transform: uppercase;
+    .preloader-logo {
+      height: 40px;
+      max-height: 40px;
+      width: auto;
+      object-fit: contain;
       margin-bottom: 1.25rem;
+      display: block;
     }
     .preloader-line {
-      width: 50px;
+      width: 52px;
       height: 2px;
       background: rgba(43, 42, 40, 0.12);
       border-radius: 9999px;
@@ -488,11 +480,10 @@
 </head>
 <body class="antialiased">
 
-  <!-- Cortina de Bienvenida / Preloader Ultra-Smooth -->
+  <!-- Cortina de Bienvenida / Preloader Ultra-Smooth con Logo Oficial -->
   <div id="sitePreloader" aria-hidden="true">
     <div class="preloader-brand">
-      <span class="preloader-emblem">竹</span>
-      <span class="preloader-title">WHITE PANDA</span>
+      <img src="https://whitepanda.mx/wp-content/uploads/2026/09/Logo-secundario-10-1-scaled.png" alt="White Panda" width="180" height="40" class="preloader-logo" fetchpriority="high" decoding="sync" />
       <div class="preloader-line">
         <div class="preloader-line-inner"></div>
       </div>
