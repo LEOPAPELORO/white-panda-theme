@@ -40,31 +40,149 @@
       }
     };
     (function() {
-      function reveal() { document.documentElement.classList.add('tw-ready'); }
+      function dismissPreloader() {
+        var loader = document.getElementById('sitePreloader');
+        if (loader && !loader.classList.contains('preloader-hidden')) {
+          loader.classList.add('preloader-hidden');
+          setTimeout(function() {
+            if (loader.parentNode) loader.style.display = 'none';
+          }, 550);
+        }
+      }
       if (document.readyState === 'complete') {
-        reveal();
+        setTimeout(dismissPreloader, 200);
       } else {
-        window.addEventListener('load', reveal);
-        setTimeout(reveal, 600);
+        window.addEventListener('load', function() {
+          setTimeout(dismissPreloader, 200);
+        });
+        setTimeout(dismissPreloader, 650);
       }
     })();
   </script>
 
   <style>
-    /* Prevención de FOUC */
-    html {
+    /* Cortina de Entrada / Preloader elegante */
+    #sitePreloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
       background-color: #EDECE7;
-      opacity: 0;
-      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    html.tw-ready {
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
+      pointer-events: all;
+    }
+    #sitePreloader.preloader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transform: translateY(0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #sitePreloader.preloader-hidden .preloader-brand {
+      transform: translateY(-8px);
+    }
+    .preloader-emblem {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 2.75rem;
+      line-height: 1;
+      color: #2B2A28;
+      margin-bottom: 0.4rem;
+    }
+    .preloader-title {
+      font-family: 'JetBrains Mono', monospace, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: rgba(43, 42, 40, 0.85);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .preloader-line {
+      width: 50px;
+      height: 2px;
+      background: rgba(43, 42, 40, 0.12);
+      border-radius: 9999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .preloader-line-inner {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -50%;
+      width: 50%;
+      background: #2B2A28;
+      border-radius: 9999px;
+      animation: preloader-sweep 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes preloader-sweep {
+      0% { left: -50%; width: 30%; }
+      50% { left: 25%; width: 55%; }
+      100% { left: 105%; width: 25%; }
     }
 
     /* Regla global absoluta contra hipervínculos azules */
-    a, a:link, a:visited, a:hover, a:active {
+    a, a:link, a:visited {
       color: inherit;
       text-decoration: none;
+    }
+
+    /* Botones oscuros y CTAs (blindados contra :visited y temas de WordPress) */
+    .btn-dark,
+    a.btn-dark,
+    a.bg-charcoal,
+    button.bg-charcoal {
+      background-color: #2B2A28 !important;
+      color: #FAF9F5 !important;
+    }
+    .btn-dark:link,
+    .btn-dark:visited,
+    a.btn-dark:link,
+    a.btn-dark:visited,
+    a.bg-charcoal:link,
+    a.bg-charcoal:visited {
+      background-color: #2B2A28 !important;
+      color: #FAF9F5 !important;
+    }
+    .btn-dark *,
+    a.btn-dark *,
+    a.bg-charcoal * {
+      color: #FAF9F5 !important;
+    }
+    .btn-dark .arrow-slide,
+    a.bg-charcoal .arrow-slide {
+      color: #FAF9F5 !important;
+    }
+
+    /* Botones claros y botón de cotización */
+    .btn-light,
+    a.btn-light,
+    a.btn-light:link,
+    a.btn-light:visited,
+    #submitQuoteBtn {
+      background-color: #FAF9F5 !important;
+      color: #2B2A28 !important;
+    }
+    .btn-light *,
+    #submitQuoteBtn * {
+      color: #2B2A28 !important;
     }
 
     /* Header y Barra de Navegación 100% blindados en CSS */
@@ -107,20 +225,32 @@
         gap: 2.25rem !important;
       }
     }
-    header nav a {
+    header nav a,
+    header nav a:link,
+    header nav a:visited {
+      display: inline-block !important;
+      background: transparent !important;
+      background-color: transparent !important;
       color: rgba(43, 42, 40, 0.7) !important;
-      text-decoration: none !important;
       font-size: 0.75rem !important;
       font-weight: 600 !important;
       letter-spacing: 0.1em !important;
       text-transform: uppercase !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
       transition: color 0.2s ease !important;
     }
-    header nav a:hover {
+    header nav a:hover,
+    header nav a:active {
       color: #2B2A28 !important;
+      background: transparent !important;
+      background-color: transparent !important;
     }
-    header a[href="#cotizador"],
-    header .btn-shine {
+    header a.btn-shine,
+    header a.btn-shine:link,
+    header a.btn-shine:visited {
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -135,8 +265,11 @@
       text-decoration: none !important;
       box-shadow: 0 4px 12px rgba(43, 42, 40, 0.15) !important;
     }
-    #navTotal {
+    #navTotal.hidden {
       display: none !important;
+    }
+    #navTotal.grid {
+      display: grid !important;
     }
 
     /* Pre-Tailwind Layout Lock — Proporciones y dimensiones fijas instantáneas */
@@ -355,6 +488,17 @@
 </head>
 <body class="antialiased">
 
+  <!-- Cortina de Bienvenida / Preloader Ultra-Smooth -->
+  <div id="sitePreloader" aria-hidden="true">
+    <div class="preloader-brand">
+      <span class="preloader-emblem">竹</span>
+      <span class="preloader-title">WHITE PANDA</span>
+      <div class="preloader-line">
+        <div class="preloader-line-inner"></div>
+      </div>
+    </div>
+  </div>
+
   <header class="fixed inset-x-0 z-40 bg-linen/85 backdrop-blur-xl border-b border-charcoal/5 transition-all duration-300" style="top: env(safe-area-inset-top, 0px)">
     <div class="max-w-[1440px] mx-auto gutter h-20 flex items-center justify-between">
       <a href="#" class="block hover:opacity-80 transition-opacity">
@@ -367,8 +511,8 @@
         <a href="#bambu" class="hover:text-charcoal transition-colors">Materia Prima</a>
         <a href="#cotizador" class="hover:text-charcoal transition-colors">Cotización B2B</a>
       </nav>
-      <a href="#cotizador" class="btn-shine inline-flex items-center justify-center gap-2 bg-charcoal text-linen-light px-5 sm:px-6 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase hover:scale-105 transition-transform">
-        Cotizar <span id="navTotal" class="hidden min-w-[22px] h-[22px] px-1.5 rounded-full bg-linen-light text-charcoal place-items-center text-[11px]">0</span>
+      <a href="#cotizador" class="btn-shine btn-dark inline-flex items-center justify-center gap-2 bg-charcoal text-linen-light px-5 sm:px-6 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase hover:scale-105 transition-transform" style="background-color: #2B2A28 !important; color: #FAF9F5 !important;">
+        <span style="color: #FAF9F5 !important;">Cotizar</span> <span id="navTotal" class="hidden min-w-[22px] h-[22px] px-1.5 rounded-full bg-linen-light text-charcoal place-items-center text-[11px]">0</span>
       </a>
     </div>
   </header>
@@ -391,10 +535,10 @@
             Pañuelos faciales 100% de fibra de bambú, en doble capa. El estándar neutro para hotelería, corporativos y espacios exigentes.
           </p>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-            <a href="#catalogo" class="btn-shine group px-7 py-4 rounded-full bg-charcoal text-white font-semibold text-xs uppercase tracking-wider text-center hover:scale-105 transition-transform shadow-md">
-              Explorar colección <span class="arrow-slide">→</span>
+            <a href="#catalogo" class="btn-shine btn-dark group px-7 py-4 rounded-full bg-charcoal text-[#FAF9F5] font-semibold text-xs uppercase tracking-wider text-center hover:scale-105 transition-transform shadow-md" style="background-color: #2B2A28 !important; color: #FAF9F5 !important;">
+              <span style="color: #FAF9F5 !important;">Explorar colección</span> <span class="arrow-slide" style="color: #FAF9F5 !important;">→</span>
             </a>
-            <a href="#cotizador" class="px-7 py-4 rounded-full bg-white/80 text-charcoal border border-white font-semibold text-xs uppercase tracking-wider text-center hover:bg-white hover:scale-[1.03] transition-all">
+            <a href="#cotizador" class="btn-light px-7 py-4 rounded-full bg-white/80 text-charcoal border border-white font-semibold text-xs uppercase tracking-wider text-center hover:bg-white hover:scale-[1.03] transition-all" style="color: #2B2A28 !important;">
               Solicitar muestras
             </a>
           </div>
@@ -402,6 +546,7 @@
       </div>
     </div>
   </section>
+
 
   <section id="filosofia" class="py-24 md:py-32 gutter relative overflow-hidden">
     <div class="absolute left-1/4 top-12 w-96 h-96 rounded-full bg-white/70 blur-3xl pointer-events-none"></div>
